@@ -53,17 +53,17 @@ def process_files_in_one_folder(leaf_script_path, root_input_folder_path, source
                     os.makedirs(output_folder_path, exist_ok=True)
                     has_been_run_on_one_file = True            
                     subprocess.call(['/usr/bin/touch', lock_file_path])
-                    stdout_file_path = os.path.join(output_folder_path, dlct.replace_extension(source_file_name, '-stdout.txt'))
-                    stderr_file_path = os.path.join(output_folder_path, dlct.replace_extension(source_file_name, '-stderr.txt'))
+                    stdout_file_path = os.path.join(output_folder_path, dlct.replace_extension(source_file_name, '-out.txt'))
+                    #stderr_file_path = os.path.join(output_folder_path, dlct.replace_extension(source_file_name, '-stderr.txt'))
                     print("stdout_file_path: %s" % stdout_file_path)
-                    print("stderr_file_path: %s" % stderr_file_path)
+                    #print("stderr_file_path: %s" % stderr_file_path)
                     print("root_input_folder_path: %s" % root_input_folder_path)
                     print("source_file_path: %s" % source_file_path)
                     print("lock_file_path: %s"   % lock_file_path)
                     print("target_file_path: %s" % target_file_path)
                     print("PATH: %s" % os.environ['PATH'])
                     print("PWD: %s" % os.environ['PWD'])
-                    command_list = ['bsub', '-o', stdout_file_path, '-e', stderr_file_path, 
+                    command_list = ['bsub', '-oo', stdout_file_path, '-eo', stdout_file_path, 
                                     'python3', leaf_script_path, root_input_folder_path, source_file_path, lock_file_path, target_file_path]
                     print('About to subprocess.call(): %s' % repr(command_list))
                     return_code = subprocess.call(command_list)
