@@ -70,17 +70,16 @@ def compress_video_and_delete_input_file(root_input_video_path,
                                          input_video_path,
                                          lock_file_path,
                                          output_video_path):
-    try:
-        compress_video(input_video_path, output_video_path)
-    except Exception as e:
-        # Remove the lock file
-        if os.path.exists(lock_file_path) :
-            os.remove(lock_file_path)
-        raise e
-    # Remove the lock file
+    compress_video(input_video_path, output_video_path)
+
+    # Remove the lock file, but note that we will only get here if compress_video() does not throw
+    # Want to leave the lock in place if compress_video() throws, to prevent endless re-running
     if os.path.exists(lock_file_path) :
         os.remove(lock_file_path)
+
     delete_input_file_and_empty_ancestral_folders(input_video_path, root_input_video_path)
+
+
 
 #
 # main
