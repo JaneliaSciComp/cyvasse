@@ -3,12 +3,12 @@
 import os
 import shutil
 
-if os.path.exists('videos-to-compress'):    
-    shutil.rmtree('videos-to-compress')
-shutil.copytree('videos-to-compress-read-only', 'videos-to-compress')
+if os.path.exists('cyvasse-drop'):
+    shutil.rmtree('cyvasse-drop')
+shutil.copytree('cyvasse-drop-read-only', 'cyvasse-drop')
 
-if os.path.exists('videos-that-are-compressed'):    
-    shutil.rmtree('videos-that-are-compressed')
-os.mkdir('videos-that-are-compressed')
+if os.path.exists('cyvasse-drop-output'):
+    shutil.rmtree('cyvasse-drop-output')
+os.mkdir('cyvasse-drop-output')
 
-os.system('python3 cyvasse.py videos-to-compress videos-that-are-compressed')
+os.system('python3 cyvasse.py cyvasse-drop cyvasse-drop-output')
